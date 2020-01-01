@@ -9,7 +9,7 @@ interface OpusMediaRecorder extends EventTarget {
   state: 'inactive' | 'recording' | 'paused';
   audioBitsPerSecond: number;
 
-  start(timeslice: number): void;
+  start(timeslice?: number): void;
 
   stop(): void;
 
@@ -61,7 +61,7 @@ export class RecordingComponent implements OnInit, OnDestroy {
       };
       this.recorder = new MediaRecorder(stream, options, workerOptions);
       this.recorder.addEventListener('dataavailable', e => {
-        this.recordings = this.recordings.concat([{ url: this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(e.data)) }]);
+        this.recordings = this.recordings.concat([{ url: this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL((e as any).data)) }]);
         stream.getTracks().forEach(track => track.stop());
       });
       this.startSound.play();
