@@ -1,0 +1,6 @@
+<p>recording works!</p>
+
+<button (click)="onRecording()">녹음</button>
+<div *ngFor="let recording of recordings" [attr.key]="recording.url">
+  <audio controls [src]="recording.url"></audio>
+</div>
